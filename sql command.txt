@@ -1,0 +1,41 @@
+CREATE TABLE Adotandos (
+	`Cpf` varchar(14) NOT NULL,
+	`Nome_adotando` varchar(50) NOT NULL,
+	`Telefone` varchar(12) NOT NULL,
+	`Sexo` varchar(1) NOT NULL,
+	`Nascimento` varchar(10) NOT NULL,
+	`Endereço_id` int NOT NULL,
+	PRIMARY KEY (`Cpf`)
+);
+
+CREATE TABLE Endereços (
+	`Sequencial_endereço` int NOT NULL AUTO_INCREMENT,
+	`Logradouro` varchar(50) NOT NULL,
+	`Número` varchar(5) NOT NULL,
+	`Complemento` varchar(20),
+	`Bairro` varchar(50) NOT NULL,
+	`Cidade` varchar(40) NOT NULL,
+	`Cep` varchar(9) NOT NULL,
+	PRIMARY KEY (`Sequencial_endereço`)
+);
+
+CREATE TABLE Cachorros(
+	`Sequencial_cachorro` INT AUTO_INCREMENT,
+	`Nome_cachorro` VARCHAR(17),
+	`Raça` INT,
+	`Manso` BOOLEAN,
+	PRIMARY KEY (`Sequencial_cachorro`)
+);
+
+CREATE TABLE Adoções(
+	`Sequencial_adoção` INT AUTO_INCREMENT,
+	`Data_adoção` VARCHAR(10),
+	`Soube` INT,
+	`Adotando_id` VARCHAR(14),
+	`Cachorro_id` INT,
+	PRIMARY KEY (`Sequencial_adoção`)
+);
+
+ALTER TABLE Adotandos ADD CONSTRAINT `Adotando_fk0` FOREIGN KEY (`Endereço_id`) REFERENCES Endereços(`Sequencial_endereço`);
+ALTER TABLE Adoções ADD CONSTRAINT `Adoções_fk0` FOREIGN KEY (`Adotando_id`) REFERENCES Adotandos(`Cpf`);
+ALTER TABLE Adoções ADD CONSTRAINT `Adoções_fk1` FOREIGN KEY (`Cachorro_id`) REFERENCES Cachorros(`Sequencial_cachorro`);
